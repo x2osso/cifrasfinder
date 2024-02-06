@@ -12,12 +12,18 @@ class Cadastrar extends CI_Controller {
 
 	public function index()
 	{
-		$this->template->show('cadastrar');
-
+		$data = [];
 		$data['row'] = $this->instrumentos->listAll();
 
-		print_r($data['row']->inst_nome);
-		die();
+		$this->template->show('cadastrar',$data);
+	}
+
+	public function cadUser(){
+		$data = [];
+
+		$data['user_name'] = $this->users->
+
+
 	}
 
 	public function ajax_import_img() {

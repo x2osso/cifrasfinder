@@ -8,7 +8,7 @@
                     <h1 class="section-title ">Cadastrar</h1>
                 </div>
             </div>
-          <form>
+          <form action="<?base_url();?>/cadUser">
             <div class="container">
                 <div class="row">
                   <div class="col-2" style="font-size:100px">
@@ -32,6 +32,9 @@
                             <label for="" class="form-label"><h3>Instrumento favorito</h3></label>
                             <select style="height:75px;border-radius:40px" class="form-control " id="inst_id" >
                               <option value="">Escolha um Instrumento . . . </option>
+                              <?php foreach ($row as $inst): ?>
+                                  <option value="<?= $inst->inst_id ?>"><?=$inst->inst_name?></option>
+                              <?php endforeach; ?>
                             </select>
                           </div>
                         </div>

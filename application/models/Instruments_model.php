@@ -6,13 +6,15 @@ class Instruments_model extends CI_Model{
 	public function __construct(){
 		parent:: __construct();
 		$this->load->database();
+		$this->table    = 'tb_instruments';
+		$this->prefixo  = 'inst_';
+		$this->modulo   = 'plataforma';
+		$this->pk       = 'id';
 	}
 
-  public function listAll(){
-          $this->db->from("tb_instruments");
-          $this->db->order_by("inst_id", "DESC");
-          return $this->db->order_by( $this->prefixo."id" , "DESC" )->get($this->table)->result();
-  }
+	public function listAll() {
+        return $this->db->order_by($this->prefixo . $this->pk, "DESC")->get($this->table)->result();
+    }
 
 	public function insert($data){
 		$this->db->insert("tb_instruments",$data);
