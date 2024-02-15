@@ -1,6 +1,6 @@
 <?php
 
-class User_model extends CI_Model{
+class Users_model extends CI_Model{
 
 	//contrutor para acessar o banco de dados
 	public function __construct(){

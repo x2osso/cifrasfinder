@@ -1,7 +1,6 @@
-
+<?php header('Access-Control-Allow-Origin: *'); ?>
 <body>
     <main>
-
         <section class="hero-section">
             <div class="container">
                 <div class="row">
@@ -12,7 +11,7 @@
 
                             <p class="text-white">Listen it everywhere. Explore your fav podcasts.</p>
 
-                            <a href="#section_2" class="btn custom-btn smoothscroll mt-3">Start listening</a>
+                            <a id="showlogin" href="" class="btn custom-btn smoothscroll mt-3">Start listening</a>
                         </div>
 
                         <div class="owl-carousel owl-theme">
@@ -633,6 +632,36 @@
                 </div>
             </div>
         </section>
+        <!-- Modais -->
+
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Recipient:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                  </div>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Message:</label>
+                    <textarea class="form-control" id="message-text"></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+              </div>
+            </div>
+          </div>
+        </div>
     </main>
 
 </body>

@@ -1,6 +1,22 @@
 const BASE_URL = "https://localhost/cifras/cifrasfinder";
 
 
+
+$("#form_user").submit(function (){
+
+    $.ajax({
+      type: "POST",
+      url: BASE_URL + "cadastrar/ajax_save_user",
+      dataType: json,
+      data: $(this).serialize(),//serialize serve pra pegar as info do form e passar em formato q pode ser lido pelo metodo post
+      sucess: function(response){
+      }
+    });
+
+  return false;
+})
+
+
 $("#upload_user_img").change(function(){
   uploadImg($(this),$("#user_img_src"),$("#user_img"));
   $("#logoImg").css({
@@ -16,7 +32,6 @@ function uploadImg(input_file, img, input_path){
 
 	//nome definido no meu controler pra img
 	form_data.append("image_file", img_file);
-
 	$.ajax({
 		url: BASE_URL + "/cadastrar/ajax_import_img",
 		dataType: "json",

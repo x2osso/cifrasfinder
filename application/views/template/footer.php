@@ -1,3 +1,4 @@
+<?php header('Access-Control-Allow-Origin: *'); ?>
 </body>
 <footer class="site-footer">
     <div class="container">
