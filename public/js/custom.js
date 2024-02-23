@@ -14,14 +14,32 @@
 
   $('.showCadastrar').on('click', function (event) {
 
-      $("#id_login").val('');
-      $("#id_password").val('');
-      $("#user_img_src").html('<img id="user_img_src" class="" src="" style="max-height: 106px;max-width: 144px;">');
+      $("#user_name").val('');
+      $("#inst_id").val('');
+      $("#user_email").val('');
+      $("#user_password").val('');
+      $("#user_bio").val('');
+      $("#user_img_src").attr("src", "");
+      $("#logoImg").css({
+      display: "block",
+      visibility: "visible"
+      });
 
       $("#loginModal").modal('hide');
       $("#cadastrarModal").modal('show');
   });
 
+  $("#form_user").submit(function (){
+      $.ajax({
+        type: "POST",
+        url: BASE_URL + "cadastrar/ajax_save_user",
+        dataType: json,
+        data: $(this).serialize(),//serialize serve pra pegar as info do form e passar em formato q pode ser lido pelo metodo post
+        sucess: function(response){
+        }
+      });
+    return false;
+  })
 
     // MENU
     $('.navbar-collapse a').on('click',function(){

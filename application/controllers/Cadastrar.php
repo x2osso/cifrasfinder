@@ -20,23 +20,32 @@ class Cadastrar extends CI_Controller {
 		$this->template->show('cadastrar',$data);
 	}
 
-	public function ajax_save_user(){
+	public function save_user(){
 
-		$json = array();
-		$json['status'] = 1;
-		$json['error_list'] = array();
+		$json 									= array();
+		$json['status'] 				= 1;
+		$json['error_list'] 		= array();
+		$data["user_id"]						 = [];
+		$data['user_img'] 					 = $this->input->post("user_img");
+		$data['user_name']  				 = $this->input->post("user_name");
+		$data['user_email']  				 = $this->input->post("user_email");
+		$password  								   = $this->input->post("user_password");
+		$data['user_bio']  					 = $this->input->post("user_bio");
+		$data['inst_id']  					 = $this->input->post("inst_id");
+		$data['user_password_hash']  = password_hash($password, PASSWORD_DEFAULT);//password_verify(senha,senha_comparar) depois pra comparar esses hash
 
-		$data = $this->input->post();
 
-		dd($data);
-		die();
-
-
-		if ($this->users->is_duplicated("user_email", $data["user_email"], $data['user_id'])) {
+		if ($this->users->is_duplicated("user_email", $data['user_email'])) {
 				$json['error_list']["#user_email"] = "Email de usuario ja cadastrado !!!";
+				/*Mensagem De Alerta*/
+				$teste 														 = $this->users->get_user_data($data['user_email']);
+				$data["user_id"] 									 = $teste->user_id;
 		}
 		if (!empty($json["error_list"])) {
-			$json["status"] = 0;
+			$return['status']                   = 'warning';
+			$return['title']                    = 'ERRO';
+			$return['msg']                      = 'Cadastro falhou tente novamente';
+			$return['url']                      = 'home';
 		} else {
 			if (!empty($data["user_img"])) {
 
@@ -52,17 +61,20 @@ class Cadastrar extends CI_Controller {
 			}
 
 			if (empty($data["user_id"])) {
-				$this->curso_model->insert($data);
+				$this->users->insert($data);
 			} else {
 				$user_id = $data["user_id"];
 				unset($data["user_id"]);
-				$this->curso_model->update($user_id, $data);
+				$this->users->update($user_id, $data);
 			}
+
+			$return['status']                   = 'success';
+			$return['title']                    = 'Sucesso';
+			$return['msg']                      = 'Usuario cadastrado com sucesso';
+			$return['url']                      = 'home';
 		}
 
-		die();
-
-		echo json_encode($json);
+		echo json_encode($return);
 	}
 
 	public function ajax_import_img() {
@@ -88,7 +100,6 @@ class Cadastrar extends CI_Controller {
 				$file_name = $this->upload->data()["file_name"];
 				$json["img_path"] = base_url() . "tmp/" . $file_name;
 				$json["status"] = 'sucess';
-				$json["error"] = '';
 			}else{
 				$json["status"] = 0;
 				$json["error"] = "O arquivo nao deve ser maior q 1mb";

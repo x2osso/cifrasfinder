@@ -1,9 +1,8 @@
-const BASE_URL = "https://localhost/cifras/cifrasfinder";
+const BASE_URL = "https://localhost/cifrasfinder";
 
 
 
 $("#form_user").submit(function (){
-
     $.ajax({
       type: "POST",
       url: BASE_URL + "cadastrar/ajax_save_user",
@@ -12,7 +11,6 @@ $("#form_user").submit(function (){
       sucess: function(response){
       }
     });
-
   return false;
 })
 
@@ -46,6 +44,7 @@ function uploadImg(input_file, img, input_path){
 			if(response["status"]){
 				img.attr("src", response["img_path"]);
 				input_path.val(response["img_path"]);
+        input_path.siblings(".help-block").html('');
 			}else{
 				img.attr("src", src_before);
 				input_path.siblings(".help-block").html(response["error"]);

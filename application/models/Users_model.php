@@ -15,7 +15,7 @@ class Users_model extends CI_Model{
 		$this->db
 			->select("*")
 			->from("tb_users")
-			->where("user_login", $user_login);
+			->where("user_email", $user_login);
 		$result = $this->db->get();
 
 		if($result->num_rows()>0){
